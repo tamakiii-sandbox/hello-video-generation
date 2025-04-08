@@ -9,9 +9,7 @@
   "directories": {
     "example": "example"
   },
-  "scripts": {
-    "start": "node bin/generate example/01-notebooklm-generated/GitHub\\ Pull\\ Request\\ \\#1_\\ Initialize\\ JSON-RPC\\ 2_0.wav.wav example/01-notebooklm-generated/GitHub\\ Pull\\ Request\\ \\#1_\\ Initialize\\ JSON-RPC\\ 2_0.wav.wav.en.txt example/01-notebooklm-generated/output.mp4"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tamakiii-sandbox/hello-video-generation.git"
