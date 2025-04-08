@@ -14,6 +14,7 @@ class AudioToVideoConverter {
       backgroundColor: 'black',
       width: 1280,
       height: 720,
+      backgroundImage: null, // Add support for a background image path
       ...options
     };
   }
@@ -33,6 +34,11 @@ class AudioToVideoConverter {
       }
       if (!fs.existsSync(transcriptionPath)) {
         throw new Error(`Transcription file not found: ${transcriptionPath}`);
+      }
+      
+      // Verify background image exists if provided
+      if (this.options.backgroundImage && !fs.existsSync(this.options.backgroundImage)) {
+        throw new Error(`Background image not found: ${this.options.backgroundImage}`);
       }
 
       // Ensure the output directory exists
@@ -77,10 +83,18 @@ class AudioToVideoConverter {
       const audioDuration = await this._getAudioDuration(audioPath);
       console.log(`Audio duration: ${audioDuration} seconds`);
 
-      // Create a simple black PNG file using direct FFmpeg command
-      const tempBgPath = path.join(outputDir, `bg_${path.basename(outputPath)}.png`);
-      this._createBlackImage(tempBgPath);
-      console.log(`Created background image: ${tempBgPath}`);
+      // Determine the background image to use
+      let backgroundImagePath;
+      if (this.options.backgroundImage) {
+        // Use provided background image
+        backgroundImagePath = this.options.backgroundImage;
+        console.log(`Using provided background image: ${backgroundImagePath}`);
+      } else {
+        // Create a simple black PNG file using direct FFmpeg command
+        backgroundImagePath = path.join(outputDir, `bg_${path.basename(outputPath)}.png`);
+        this._createBlackImage(backgroundImagePath);
+        console.log(`Created black background image: ${backgroundImagePath}`);
+      }
 
       // Use FFmpeg to create video from audio and add subtitles
       return new Promise((resolve, reject) => {
@@ -91,8 +105,8 @@ class AudioToVideoConverter {
         const escapedSrtPath = tempSrtPath.replace(/'/g, "'\\''").replace(/:/g, '\\:');
         
         ffmpeg()
-          // Use a solid color image for the background
-          .input(tempBgPath)
+          // Use the background image
+          .input(backgroundImagePath)
           .inputOptions(['-loop 1'])  // Loop the image
           .input(audioPath)           // Add the audio
           .outputOptions([
@@ -111,8 +125,11 @@ class AudioToVideoConverter {
             // Clean up temporary files
             console.log('Cleaning up temporary files...');
             // fs.unlinkSync(tempSrtPath);
-            // fs.unlinkSync(tempBgPath);
-            console.log(`Video created successfully: ${outputPath}`);
+            // Don't delete the background image if it was provided by the user
+            // if (!this.options.backgroundImage) {
+            //   fs.unlinkSync(backgroundImagePath);
+            // }
+            console.log(`Video generated successfully: ${outputPath}`);
             resolve(outputPath);
           })
           .on('error', (err) => {

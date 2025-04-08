@@ -7,15 +7,17 @@ const AudioToVideoConverter = require('../src/audioToVideoConverter');
 
 // Print usage instructions
 function printUsage() {
-  console.log('Usage: generate <audio-file> <transcription-file> <output-file>');
+  console.log('Usage: generate <audio-file> <transcription-file> <output-file> [background-image]');
   console.log('');
   console.log('Arguments:');
   console.log('  <audio-file>         Path to the audio file');
   console.log('  <transcription-file> Path to the transcription file (.txt or .srt)');
   console.log('  <output-file>        Path for the output video file (.mp4)');
+  console.log('  [background-image]   (Optional) Path to the background image file');
   console.log('');
   console.log('Example:');
   console.log('  generate input.wav transcription.txt output.mp4');
+  console.log('  generate input.wav transcription.txt output.mp4 background.png');
 }
 
 // Main function
@@ -23,15 +25,15 @@ async function main() {
   // Get command line arguments (skip first two: node and script path)
   const args = process.argv.slice(2);
 
-  // Check if we have the correct number of arguments
-  if (args.length !== 3) {
-    console.error('Error: Incorrect number of arguments');
+  // Check if we have at least the required number of arguments
+  if (args.length < 3) {
+    console.error('Error: Insufficient number of arguments');
     printUsage();
     process.exit(1);
   }
 
   // Extract arguments
-  const [audioPath, transcriptionPath, outputPath] = args.map(arg => {
+  const [audioPath, transcriptionPath, outputPath, backgroundImagePath] = args.map(arg => {
     // If the path is not absolute, make it relative to the current working directory
     return path.isAbsolute(arg) ? arg : path.join(process.cwd(), arg);
   });
@@ -47,21 +49,39 @@ async function main() {
     process.exit(1);
   }
 
-  // Create converter instance with default options
-  const converter = new AudioToVideoConverter({
+  // Verify background image if provided
+  if (backgroundImagePath && !fs.existsSync(backgroundImagePath)) {
+    console.error(`Error: Background image not found: ${backgroundImagePath}`);
+    process.exit(1);
+  }
+
+  // Create converter instance with options
+  const converterOptions = {
     fontFamily: 'Arial',
     fontSize: 36,  // Larger font for better readability
     fontColor: 'white',
     backgroundColor: 'black',
     width: 1280,
     height: 720
-  });
+  };
+
+  // Add background image if provided
+  if (backgroundImagePath) {
+    converterOptions.backgroundImage = backgroundImagePath;
+  }
+
+  const converter = new AudioToVideoConverter(converterOptions);
 
   try {
     console.log('Starting video generation...');
     console.log(`Audio file: ${audioPath}`);
     console.log(`Transcription file: ${transcriptionPath}`);
     console.log(`Output file: ${outputPath}`);
+    if (backgroundImagePath) {
+      console.log(`Background image: ${backgroundImagePath}`);
+    } else {
+      console.log('Using default black background');
+    }
 
     // Generate the video
     await converter.convert(audioPath, transcriptionPath, outputPath);
