@@ -1,0 +1,250 @@
+
+[00:00:00.000 --> 00:00:04.900]   Okay, so you know how we always say, send us your interesting stuff and we'll take a deep dive.
+[00:00:04.900 --> 00:00:05.840]   Yeah, definitely.
+[00:00:05.840 --> 00:00:07.000]   Well, someone actually did.
+[00:00:07.000 --> 00:00:08.140]   Oh, wow. Awesome.
+[00:00:08.140 --> 00:00:09.340]   It's pretty cool, actually.
+[00:00:09.340 --> 00:00:10.300]   Okay, let's hear it.
+[00:00:10.300 --> 00:00:11.980]   It's a GitHub pull request.
+[00:00:11.980 --> 00:00:13.440]   Interesting.
+[00:00:13.440 --> 00:00:15.000]   The title is just init.
+[00:00:15.000 --> 00:00:15.420]   Init?
+[00:00:15.420 --> 00:00:16.040]   Yeah.
+[00:00:16.040 --> 00:00:16.840]   Short and sweet.
+[00:00:16.840 --> 00:00:24.240]   It's by someone named Tamaki in the Tamaki Sandbox HelloJSON RPC 2.0 repository.
+[00:00:24.240 --> 00:00:28.940]   Okay, so right off the bat, we've got a good username and an interesting repository name.
+[00:00:28.940 --> 00:00:29.300]   For sure.
+[00:00:29.540 --> 00:00:30.580]   And it's a pull request.
+[00:00:30.580 --> 00:00:34.920]   Yeah, so for anyone listening who maybe isn't super familiar with the whole coding world.
+[00:00:34.920 --> 00:00:35.800]   Yeah, good point.
+[00:00:35.800 --> 00:00:40.800]   A pull request is basically like when you want to propose changes to a software project.
+[00:00:40.800 --> 00:00:44.860]   Right, it's like suggesting edits to a document, but for code.
+[00:00:44.860 --> 00:00:45.740]   Exactly.
+[00:00:45.740 --> 00:00:48.680]   And it's how most software gets updated and improved.
+[00:00:48.680 --> 00:00:51.320]   And even these init pull requests.
+[00:00:51.320 --> 00:00:52.360]   Like the one we're looking at.
+[00:00:52.360 --> 00:00:52.920]   Exactly.
+[00:00:52.920 --> 00:00:55.480]   They can tell us a lot about how a project starts.
+[00:00:55.480 --> 00:00:57.260]   Those first steps, those initial decisions.
+[00:00:57.260 --> 00:00:57.700]   Right.
+[00:00:57.820 --> 00:00:59.720]   So that's kind of our mission for this deep dive.
+[00:00:59.720 --> 00:01:01.640]   Do you unpack this init pull request?
+[00:01:01.640 --> 00:01:02.100]   Yeah.
+[00:01:02.100 --> 00:01:05.300]   And see what it reveals about the beginning of this project.
+[00:01:05.300 --> 00:01:06.580]   I love it.
+[00:01:06.580 --> 00:01:07.800]   It's like digital archaeology.
+[00:01:07.800 --> 00:01:08.280]   Okay.
+[00:01:08.280 --> 00:01:11.820]   So looking at this pull request, it's labeled hashtag one.
+[00:01:12.140 --> 00:01:13.200]   So it's the very first one.
+[00:01:13.200 --> 00:01:13.540]   Yep.
+[00:01:13.540 --> 00:01:14.900]   And it's from Tamaki, obviously.
+[00:01:14.900 --> 00:01:15.420]   Right.
+[00:01:15.420 --> 00:01:18.560]   And it's asking to merge four commits.
+[00:01:18.560 --> 00:01:19.580]   Four commits already.
+[00:01:19.580 --> 00:01:19.880]   Yeah.
+[00:01:19.880 --> 00:01:24.120]   From a branch called init into the main branch of the repository.
+[00:01:24.120 --> 00:01:27.580]   Which is called hellojsonrpc2.eva.
+[00:01:27.580 --> 00:01:28.280]   Right.
+[00:01:28.280 --> 00:01:32.020]   And there's also a note about choosing the main branch as the base.
+[00:01:32.260 --> 00:01:32.920]   Oh, yeah.
+[00:01:32.920 --> 00:01:33.480]   I see that.
+[00:01:33.480 --> 00:01:38.520]   And a little warning that if you change the base later, some comments might get messed up.
+[00:01:38.520 --> 00:01:38.900]   Right.
+[00:01:38.900 --> 00:01:40.660]   Because the context would be different.
+[00:01:40.660 --> 00:01:41.340]   Exactly.
+[00:01:41.340 --> 00:01:42.920]   This is actually really important, you know.
+[00:01:42.920 --> 00:01:43.160]   Yeah.
+[00:01:43.160 --> 00:01:48.080]   It shows how much GitHub cares about keeping things organized and clear for everyone involved.
+[00:01:48.080 --> 00:01:48.640]   That's true.
+[00:01:48.640 --> 00:01:51.820]   Even a small detail like that warning about outdated comments.
+[00:01:51.820 --> 00:01:52.440]   Yeah.
+[00:01:52.680 --> 00:01:57.220]   It highlights how crucial communication is in these collaborative coding environments.
+[00:01:57.220 --> 00:01:57.580]   Okay.
+[00:01:57.580 --> 00:02:00.400]   So we know where these changes are coming from and where they're going.
+[00:02:00.400 --> 00:02:00.920]   Right.
+[00:02:00.920 --> 00:02:02.680]   The init branch to the main branch.
+[00:02:02.680 --> 00:02:04.700]   But now let's see what those changes are.
+[00:02:04.700 --> 00:02:07.040]   The actual content of those four commits.
+[00:02:07.040 --> 00:02:07.700]   Exactly.
+[00:02:07.700 --> 00:02:10.120]   So the first commit is called go mod init.
+[00:02:10.120 --> 00:02:10.900]   Oh, okay.
+[00:02:10.900 --> 00:02:12.580]   So this is probably a go project then.
+[00:02:12.580 --> 00:02:13.400]   Yeah, most likely.
+[00:02:13.400 --> 00:02:16.600]   Go mod init is like the first thing you do when you start a new go project.
+[00:02:16.600 --> 00:02:18.200]   It's like setting up the foundation.
+[00:02:18.200 --> 00:02:18.720]   Yeah.
+[00:02:18.820 --> 00:02:23.580]   It tells go how to manage all the different packages and modules your project will use.
+[00:02:23.580 --> 00:02:23.820]   Okay.
+[00:02:23.820 --> 00:02:27.260]   The second commit is auto-generated re-ed me.
+[00:02:27.260 --> 00:02:30.560]   Ah, so that's probably just a basic documentation file.
+[00:02:30.560 --> 00:02:30.960]   Yeah.
+[00:02:30.960 --> 00:02:34.440]   A lot of tools generate these automatically when you start a project.
+[00:02:34.440 --> 00:02:36.960]   Just to give people a quick overview of what the product is about.
+[00:02:36.960 --> 00:02:39.520]   Now the third commit, this one is interesting.
+[00:02:39.520 --> 00:02:40.240]   What's it called?
+[00:02:40.240 --> 00:02:43.980]   Imple endpoint and wrote a unit test.
+[00:02:43.980 --> 00:02:44.660]   Okay.
+[00:02:44.660 --> 00:02:46.420]   So this is where things start to get real.
+[00:02:46.420 --> 00:02:46.820]   Yeah.
+[00:02:46.940 --> 00:02:51.300]   It seems like Tamaki is already diving into the actual functionality of the project.
+[00:02:51.300 --> 00:02:52.180]   Imple endpoint.
+[00:02:52.180 --> 00:02:52.820]   Yeah.
+[00:02:52.820 --> 00:02:54.280]   That means implementing an endpoint.
+[00:02:54.280 --> 00:02:58.960]   Which is basically a specific address where a web service can be accessed.
+[00:02:58.960 --> 00:02:59.360]   Right.
+[00:02:59.360 --> 00:03:00.780]   It's a doorway into the application.
+[00:03:00.780 --> 00:03:02.320]   And they've also written a unit test.
+[00:03:02.320 --> 00:03:03.480]   Ah, that's good practice.
+[00:03:03.480 --> 00:03:05.700]   A unit test is like a mini program.
+[00:03:05.700 --> 00:03:08.600]   To check if that endpoint is working correctly.
+[00:03:08.600 --> 00:03:09.160]   Exactly.
+[00:03:09.160 --> 00:03:11.720]   So they're building things and testing them right from the start.
+[00:03:11.720 --> 00:03:12.360]   Which is smart.
+[00:03:12.360 --> 00:03:15.560]   It saves you so much headache later on if you catch bugs early.
+[00:03:15.880 --> 00:03:19.840]   And the final commit is called fmtaf4f109.
+[00:03:19.840 --> 00:03:20.360]   Hmm.
+[00:03:20.360 --> 00:03:21.520]   That's a bit cryptic.
+[00:03:21.520 --> 00:03:22.060]   Yeah.
+[00:03:22.060 --> 00:03:24.540]   It's probably just some kind of automated code formatting.
+[00:03:24.540 --> 00:03:26.160]   Like running a linter or something.
+[00:03:26.160 --> 00:03:26.780]   Exactly.
+[00:03:26.780 --> 00:03:30.140]   Go projects usually have strict rules about code style.
+[00:03:30.140 --> 00:03:30.480]   Yeah.
+[00:03:30.480 --> 00:03:32.380]   It keeps everything consistent and readable.
+[00:03:32.380 --> 00:03:35.460]   Which is really important when you're collaborating with other developers.
+[00:03:35.460 --> 00:03:38.940]   It's like making sure everyone's using the same grammar and punctuation.
+[00:03:38.940 --> 00:03:39.540]   Makes sense.
+[00:03:39.540 --> 00:03:42.380]   So yeah, those four commits paint a pretty clear picture.
+[00:03:42.380 --> 00:03:45.100]   Of the very first steps of this project.
+[00:03:45.100 --> 00:03:46.420]   Setting up the Go environment.
+[00:03:46.420 --> 00:03:48.480]   Creating some basic documentation.
+[00:03:48.480 --> 00:03:50.680]   Implementing a core piece of functionality.
+[00:03:50.680 --> 00:03:52.520]   And making sure the code is formatted correctly.
+[00:03:52.520 --> 00:03:56.020]   And it all seems to be happening in a very logical sequence.
+[00:03:56.020 --> 00:03:56.620]   Yeah.
+[00:03:56.620 --> 00:03:58.700]   You can really see the thought process unfolding.
+[00:03:58.700 --> 00:03:59.380]   Okay.
+[00:03:59.500 --> 00:04:05.800]   So looking at the timeline, this pull request was opened and self-assigned on April 8th, 2025.
+[00:04:05.800 --> 00:04:07.520]   So very recent.
+[00:04:07.520 --> 00:04:07.940]   Yeah.
+[00:04:07.940 --> 00:04:10.880]   And the initial comment just says, no description provided.
+[00:04:10.880 --> 00:04:11.800]   Hmm.
+[00:04:11.800 --> 00:04:12.320]   Interesting.
+[00:04:12.320 --> 00:04:16.740]   Maybe Tamaki thought the commit titles were self-explanatory at this stage.
+[00:04:16.740 --> 00:04:17.900]   Yeah, that's possible.
+[00:04:17.900 --> 00:04:20.600]   Or maybe they just hadn't gotten around to writing a full description yet.
+[00:04:20.600 --> 00:04:21.640]   It happens.
+[00:04:21.640 --> 00:04:25.000]   But there is one interesting detail in the conversation tab.
+[00:04:25.000 --> 00:04:25.780]   What's that?
+[00:04:25.780 --> 00:04:28.620]   It says, plus 402.1.
+[00:04:28.620 --> 00:04:32.780]   So 402 lines of code added and one line removed.
+[00:04:32.780 --> 00:04:33.320]   Yeah.
+[00:04:33.320 --> 00:04:34.940]   Which makes sense for a new project.
+[00:04:34.940 --> 00:04:36.820]   You're mostly building things from scratch.
+[00:04:36.820 --> 00:04:37.460]   Exactly.
+[00:04:37.460 --> 00:04:39.320]   Wonder what that one deleted line was.
+[00:04:39.320 --> 00:04:42.500]   Maybe a typo or some leftover code from a template.
+[00:04:42.500 --> 00:04:43.780]   Yeah, probably something minor.
+[00:04:43.780 --> 00:04:46.680]   And there are no reviewers assigned to this pull request yet.
+[00:04:46.680 --> 00:04:49.180]   No labels, no projects, no milestones.
+[00:04:49.180 --> 00:04:53.200]   It really does feel like the very first step taken in isolation.
+[00:04:53.200 --> 00:04:55.000]   Just Tamaki laying the groundwork.
+[00:04:55.000 --> 00:04:57.920]   Now let's zoom out a bit and look at this whole GitHub environment.
+[00:04:57.920 --> 00:04:59.400]   Yeah, where all this is taking place.
+[00:04:59.400 --> 00:05:04.320]   So we've got the navigation menu at the top with options like explore and topics.
+[00:05:04.320 --> 00:05:07.660]   And you can filter by company size, use case industry.
+[00:05:07.660 --> 00:05:10.680]   There's the search bar where you can find anything you need.
+[00:05:10.680 --> 00:05:13.300]   Code repositories, people, you name it.
+[00:05:13.300 --> 00:05:16.680]   It's this huge interconnected world of software development.
+[00:05:16.780 --> 00:05:20.160]   Millions of developers, billions of lines of code.
+[00:05:20.160 --> 00:05:23.500]   And this little pull request is just one tiny piece of it.
+[00:05:23.500 --> 00:05:25.480]   But it's still connected to everything else.
+[00:05:25.480 --> 00:05:25.920]   Yeah.
+[00:05:25.920 --> 00:05:30.540]   And right below the repository name, there are options like fork and star.
+[00:05:30.540 --> 00:05:33.300]   So other developers can engage with this project.
+[00:05:33.300 --> 00:05:36.220]   Fork lets them create their own copy to experiment with.
+[00:05:36.220 --> 00:05:38.680]   And star is like a bookmark or a thumbs up.
+[00:05:38.880 --> 00:05:40.680]   And there's also a new issue button.
+[00:05:40.680 --> 00:05:41.220]   Oh yeah.
+[00:05:41.220 --> 00:05:43.800]   So anyone can report problems or ask questions.
+[00:05:43.800 --> 00:05:44.740]   Exactly.
+[00:05:44.740 --> 00:05:47.940]   It shows that Tamaki is open to feedback and collaboration.
+[00:05:47.940 --> 00:05:49.300]   Even at this early stage.
+[00:05:49.300 --> 00:05:53.320]   And those sign up and sign in links at the top, right?
+[00:05:53.320 --> 00:05:53.680]   Yeah.
+[00:05:53.680 --> 00:05:56.060]   They remind us that GitHub is all about community.
+[00:05:56.060 --> 00:05:56.500]   Okay.
+[00:05:56.500 --> 00:05:58.740]   So now for a little bit of a technical mystery.
+[00:05:58.740 --> 00:05:59.940]   Ooh, I love mysteries.
+[00:06:00.100 --> 00:06:03.160]   At the bottom of the pull request, there's this comment that says,
+[00:06:03.160 --> 00:06:06.760]   this suggestion is invalid because no changes were made to the code.
+[00:06:06.760 --> 00:06:10.400]   Wait, but we saw that 402 lines were added.
+[00:06:10.900 --> 00:06:11.340]   Exactly.
+[00:06:11.340 --> 00:06:12.280]   So what's going on here?
+[00:06:12.280 --> 00:06:13.280]   Hmm.
+[00:06:13.280 --> 00:06:16.720]   So this probably has to do with GitHub's commenting system.
+[00:06:16.720 --> 00:06:17.180]   Yeah.
+[00:06:17.180 --> 00:06:23.640]   You can actually suggest specific edits to individual lines of code right within a pull request.
+[00:06:23.640 --> 00:06:24.520]   Oh, that's cool.
+[00:06:24.520 --> 00:06:24.820]   Yeah.
+[00:06:24.820 --> 00:06:26.100]   It's very handy for reviewers.
+[00:06:26.100 --> 00:06:28.560]   So what this message probably means...
+[00:06:28.560 --> 00:06:30.300]   Is that someone tried to suggest an edit?
+[00:06:30.300 --> 00:06:30.820]   Yeah.
+[00:06:30.820 --> 00:06:33.120]   But for whatever reason, GitHub couldn't apply it.
+[00:06:33.120 --> 00:06:36.680]   Maybe the suggested line was already changed in another commit.
+[00:06:36.680 --> 00:06:38.040]   That's possible.
+[00:06:38.040 --> 00:06:41.920]   Or maybe this suggestion was formatted in a way that GitHub didn't understand.
+[00:06:41.920 --> 00:06:45.680]   Or maybe it was trying to suggest a change to a line that was deleted.
+[00:06:45.680 --> 00:06:46.100]   Yeah.
+[00:06:46.100 --> 00:06:47.180]   There are a few possibilities.
+[00:06:47.180 --> 00:06:48.700]   It's a bit of a technical quirk.
+[00:06:48.700 --> 00:06:51.520]   But it shows how complex these systems are under the hood.
+[00:06:51.520 --> 00:06:51.940]   Yeah.
+[00:06:51.940 --> 00:06:53.940]   All the moving parts and edge cases.
+[00:06:53.940 --> 00:06:57.360]   And it's actually interesting that the message itself gives you more context.
+[00:06:57.360 --> 00:06:58.020]   Oh, yeah.
+[00:06:58.020 --> 00:06:58.540]   I see that.
+[00:06:58.540 --> 00:07:05.040]   It says, suggestions can't be applied while viewing a subset of the diff or for lines that
+[00:07:05.040 --> 00:07:05.620]   have been deleted.
+[00:07:05.620 --> 00:07:09.540]   So it's really specific about when those suggestions work and when they don't.
+[00:07:09.540 --> 00:07:10.140]   Exactly.
+[00:07:10.140 --> 00:07:10.380]   Okay.
+[00:07:10.380 --> 00:07:11.340]   So let's bring it all together.
+[00:07:11.340 --> 00:07:11.900]   Yeah.
+[00:07:11.900 --> 00:07:13.800]   What have we learned from this init pull request?
+[00:07:13.800 --> 00:07:18.020]   Well, even though it's just the beginning of a project, it gives us a really cool glimpse
+[00:07:18.020 --> 00:07:19.700]   into the world of software development.
+[00:07:19.700 --> 00:07:21.460]   We saw those crucial first steps.
+[00:07:21.460 --> 00:07:26.660]   Setting up the Go environment, creating the re-IDM, implementing an endpoint, and writing
+[00:07:26.660 --> 00:07:27.620]   a unit test.
+[00:07:27.860 --> 00:07:32.100]   And all of that done in a very deliberate and structured way.
+[00:07:32.100 --> 00:07:33.380]   Even this early on.
+[00:07:33.380 --> 00:07:38.760]   It shows that even initiating a project on GitHub is a process with rules and conventions.
+[00:07:38.760 --> 00:07:41.440]   Not just some random chaotic thing.
+[00:07:41.440 --> 00:07:41.660]   Right.
+[00:07:41.660 --> 00:07:47.220]   And this init pull request is basically a formal request to merge those initial commits into
+[00:07:47.220 --> 00:07:48.300]   the main code base.
+[00:07:48.300 --> 00:07:53.320]   Which highlights the collaborative and organized nature of modern software development.
+[00:07:53.580 --> 00:07:53.940]   Exactly.
+[00:07:53.940 --> 00:07:56.020]   So what does this all mean for you, the listener?
+[00:07:56.020 --> 00:07:56.860]   Good question.
+[00:07:56.860 --> 00:08:00.520]   Well, hopefully it gives you a little peek behind the curtain of how software is made.
+[00:08:00.520 --> 00:08:02.220]   And how these platforms like GitHub work.
+[00:08:02.220 --> 00:08:05.900]   But maybe it also makes you think about the importance of beginnings in general.
+[00:08:05.900 --> 00:08:06.360]   Ooh.
+[00:08:06.360 --> 00:08:07.280]   I like that.
+[00:08:07.280 --> 00:08:12.460]   Any project you start, whether it's writing code or building a house or even just starting
+[00:08:12.460 --> 00:08:15.540]   a new hobby, there are always those crucial first steps.
+[00:08:15.540 --> 00:08:18.140]   That set the stage for everything that follows.
+[00:08:18.140 --> 00:08:20.980]   And those initial decisions you make, those int moments.
+[00:08:20.980 --> 00:08:23.380]   They can have a huge impact on the final outcome.
+[00:08:23.380 --> 00:08:28.760]   So as you embark on your own projects, big or small, take a moment to appreciate those beginnings.
+[00:08:28.760 --> 00:08:30.580]   Think about the groundwork you're laying.
+[00:08:30.580 --> 00:08:32.340]   And the journey you're about to embark on.
+[00:08:32.340 --> 00:08:35.320]   Because those first steps are often the most important.
+[00:08:35.320 --> 00:08:37.780]   They're the foundation for everything that comes next.
+[00:08:37.780 --> 00:08:40.560]   Thanks for joining us for this deep dive.
+[00:08:40.560 --> 00:08:42.860]   And keep sending us your fascinating stuff.
+[00:08:42.860 --> 00:08:44.760]   We'll be back soon with another one.
+
