@@ -22,9 +22,27 @@ npm install
 
 ## Usage
 
-### Using the example files
+### Command-line Interface
 
-To generate a video using the example audio and transcription files included in this repository:
+The tool can be used directly from the command line:
+
+```
+./bin/generate <audio-file> <transcription-file> <output-file>
+```
+
+Arguments:
+- `<audio-file>`: Path to the audio file
+- `<transcription-file>`: Path to the transcription file (.txt or .srt)
+- `<output-file>`: Path for the output video file (.mp4)
+
+Example:
+```
+./bin/generate example/01-notebooklm-generated/input.wav example/01-notebooklm-generated/transcription.txt output.mp4
+```
+
+### Using npm start
+
+You can also use npm start which will generate a video using the example files:
 
 ```
 npm start
@@ -32,19 +50,19 @@ npm start
 
 This will create a video file named `output.mp4` in the `example/01-notebooklm-generated` directory.
 
-### Using your own files
+### Using as a Dependency
 
-To use your own audio and transcription files, modify the `index.js` file and update the file paths:
+If you want to use this tool programmatically in another project, install it from GitHub:
 
-```javascript
-const audioPath = path.join(__dirname, 'path/to/your/audio.wav');
-const transcriptionPath = path.join(__dirname, 'path/to/your/transcription.txt');
-const outputPath = path.join(__dirname, 'path/to/output.mp4');
+```
+npm install github:tamakiii-sandbox/hello-video-generation
 ```
 
-You can also customize the video appearance by modifying the converter options:
+Then use it in your code:
 
 ```javascript
+const AudioToVideoConverter = require('hello-video-generation/src/audioToVideoConverter');
+
 const converter = new AudioToVideoConverter({
   fontFamily: 'Arial',
   fontSize: 36,
@@ -53,6 +71,11 @@ const converter = new AudioToVideoConverter({
   width: 1280,
   height: 720
 });
+
+// Convert audio and transcription to video
+converter.convert('path/to/audio.wav', 'path/to/transcription.txt', 'output.mp4')
+  .then(() => console.log('Video created successfully!'))
+  .catch(err => console.error('Error:', err));
 ```
 
 ## File Formats

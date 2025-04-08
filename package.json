@@ -2,13 +2,15 @@
   "name": "hello-video-generation",
   "version": "1.0.0",
   "description": "Convert audio and transcription files to video",
-  "main": "index.js",
+  "main": "bin/generate",
+  "bin": {
+    "generate-video": "./bin/generate"
+  },
   "directories": {
     "example": "example"
   },
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node bin/generate example/01-notebooklm-generated/GitHub\\ Pull\\ Request\\ \\#1_\\ Initialize\\ JSON-RPC\\ 2_0.wav.wav example/01-notebooklm-generated/GitHub\\ Pull\\ Request\\ \\#1_\\ Initialize\\ JSON-RPC\\ 2_0.wav.wav.en.txt example/01-notebooklm-generated/output.mp4"
   },
   "repository": {
     "type": "git",

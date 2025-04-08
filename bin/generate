@@ -1,0 +1,76 @@
+#!/usr/bin/env node
+
+// Script to generate video from audio and transcription files
+const path = require('path');
+const fs = require('fs');
+const AudioToVideoConverter = require('../src/audioToVideoConverter');
+
+// Print usage instructions
+function printUsage() {
+  console.log('Usage: generate <audio-file> <transcription-file> <output-file>');
+  console.log('');
+  console.log('Arguments:');
+  console.log('  <audio-file>         Path to the audio file');
+  console.log('  <transcription-file> Path to the transcription file (.txt or .srt)');
+  console.log('  <output-file>        Path for the output video file (.mp4)');
+  console.log('');
+  console.log('Example:');
+  console.log('  generate input.wav transcription.txt output.mp4');
+}
+
+// Main function
+async function main() {
+  // Get command line arguments (skip first two: node and script path)
+  const args = process.argv.slice(2);
+
+  // Check if we have the correct number of arguments
+  if (args.length !== 3) {
+    console.error('Error: Incorrect number of arguments');
+    printUsage();
+    process.exit(1);
+  }
+
+  // Extract arguments
+  const [audioPath, transcriptionPath, outputPath] = args.map(arg => {
+    // If the path is not absolute, make it relative to the current working directory
+    return path.isAbsolute(arg) ? arg : path.join(process.cwd(), arg);
+  });
+
+  // Verify files exist
+  if (!fs.existsSync(audioPath)) {
+    console.error(`Error: Audio file not found: ${audioPath}`);
+    process.exit(1);
+  }
+
+  if (!fs.existsSync(transcriptionPath)) {
+    console.error(`Error: Transcription file not found: ${transcriptionPath}`);
+    process.exit(1);
+  }
+
+  // Create converter instance with default options
+  const converter = new AudioToVideoConverter({
+    fontFamily: 'Arial',
+    fontSize: 36,  // Larger font for better readability
+    fontColor: 'white',
+    backgroundColor: 'black',
+    width: 1280,
+    height: 720
+  });
+
+  try {
+    console.log('Starting video generation...');
+    console.log(`Audio file: ${audioPath}`);
+    console.log(`Transcription file: ${transcriptionPath}`);
+    console.log(`Output file: ${outputPath}`);
+
+    // Generate the video
+    await converter.convert(audioPath, transcriptionPath, outputPath);
+    console.log('Video generation completed successfully!');
+  } catch (error) {
+    console.error('Failed to generate video:', error);
+    process.exit(1);
+  }
+}
+
+// Run the main function
+main();
