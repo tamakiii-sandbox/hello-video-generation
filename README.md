@@ -10,13 +10,13 @@ A Node.js tool to convert audio files and transcriptions into video files with s
 ## Installation
 
 1. Clone this repository:
-```
+```sh
 git clone https://github.com/tamakiii-sandbox/hello-video-generation.git
 cd hello-video-generation
 ```
 
 2. Install dependencies:
-```
+```sh
 npm install
 ```
 
@@ -26,7 +26,7 @@ npm install
 
 The tool can be used directly from the command line:
 
-```
+```sh
 ./bin/generate <audio-file> <transcription-file> <output-file>
 ```
 
@@ -36,7 +36,7 @@ Arguments:
 - `<output-file>`: Path for the output video file (.mp4)
 
 Example:
-```
+```sh
 ./bin/generate example/01-notebooklm-generated/input.wav example/01-notebooklm-generated/transcription.txt output.mp4
 ```
 
@@ -44,7 +44,7 @@ Example:
 
 You can also use npm start which will generate a video using the example files:
 
-```
+```sh
 npm start
 ```
 
@@ -54,7 +54,7 @@ This will create a video file named `output.mp4` in the `example/01-notebooklm-g
 
 If you want to use this tool programmatically in another project, install it from GitHub:
 
-```
+```sh
 npm install github:tamakiii-sandbox/hello-video-generation
 ```
 
