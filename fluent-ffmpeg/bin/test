@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Parameters
+AUDIO_PATH="example/02-simple/assets/example.wav"  # Replace with your audio file path
+SRT_PATH="example/02-simple/assets/subtitle.srt"  # Replace with your SRT file path
+OUTPUT_PATH="dist/output_video.mp4"  # Replace with your desired output path
+WIDTH=1280
+HEIGHT=720
+FONT_FAMILY="Arial"
+FONT_SIZE=24
+
+# Create a black background image
+echo "Creating black background image..."
+TEMP_BG_PATH="bg_$(basename "$OUTPUT_PATH").png"
+ffmpeg -f lavfi -i color=c=black:s=${WIDTH}x${HEIGHT} -frames:v 1 "$TEMP_BG_PATH"
+
+# Get audio duration
+echo "Getting audio duration..."
+DURATION=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "$AUDIO_PATH")
+echo "Audio duration: $DURATION seconds"
+
+# Escape SRT path for FFmpeg
+ESCAPED_SRT_PATH=$(echo "$SRT_PATH" | sed "s/'/'\\\\''/g" | sed 's/:/\\:/g')
+
+# Create video from image, audio, and subtitles
+echo "Creating video with subtitles..."
+# Simplified subtitle command
+ffmpeg -loop 1 -i "$TEMP_BG_PATH" \
+       -i "$AUDIO_PATH" \
+       -t "$DURATION" \
+       -c:v libx264 \
+       -c:a aac \
+       -pix_fmt yuv420p \
+       -vf "subtitles=$SRT_PATH" \
+       "$OUTPUT_PATH"
+
+echo "Video created: $OUTPUT_PATH"

@@ -1,1 +1,0 @@
-# hello-video-generation
