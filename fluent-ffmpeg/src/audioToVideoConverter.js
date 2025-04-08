@@ -189,7 +189,9 @@ class AudioToVideoConverter {
     } catch (error) {
       console.error('Error creating black image:', error);
       // Fallback to creating a file directly if FFmpeg command fails
-      this._createSimpleBlackImage(outputPath);
+      if (this._createSimpleBlackImage(outputPath)) {
+        return true;
+      }
     }
   }
 
