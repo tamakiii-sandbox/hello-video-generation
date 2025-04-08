@@ -52,12 +52,22 @@ class AudioToVideoConverter {
         const srtData = fs.readFileSync(transcriptionPath, 'utf8');
         subtitles = srtParser.fromSrt(srtData);
       } else {
-        // Assume text file with simple transcription
-        // Convert to basic subtitle format
+        // Read file content
         const text = fs.readFileSync(transcriptionPath, 'utf8');
-        subtitles = await this._textToSubtitles(text, audioPath);
+        
+        // Check if the file contains WebVTT-like format with timestamps in square brackets
+        if (text.match(/\[\d{2}:\d{2}:\d{2}\.\d{3} --> \d{2}:\d{2}:\d{2}\.\d{3}\]/)) {
+          console.log('Detected WebVTT-like format, parsing timestamps...');
+          subtitles = this._parseWebVTTLikeFormat(text);
+        } else {
+          // Assume plain text with simple transcription
+          console.log('Processing as plain text without timestamps...');
+          subtitles = await this._textToSubtitles(text, audioPath);
+        }
       }
 
+      console.log(`Parsed ${subtitles.length} subtitle entries`);
+      
       // Create temporary subtitle file
       const tempSrtPath = path.join(outputDir, `temp_${path.basename(outputPath)}.srt`);
       fs.writeFileSync(tempSrtPath, srtParser.toSrt(subtitles));
@@ -93,15 +103,15 @@ class AudioToVideoConverter {
             '-b:a 192k',              // Audio bitrate
             '-pix_fmt yuv420p',       // Pixel format for better compatibility
             '-vf',                    // Video filter
-            // Enhanced subtitle styling for better visibility
-            `subtitles=${escapedSrtPath}:force_style='FontName=${this.options.fontFamily},FontSize=${this.options.fontSize},PrimaryColour=white,BorderStyle=4,BackColour=black,Bold=1,Outline=2'`
+            // Use simpler subtitle styling to ensure compatibility
+            `subtitles=${escapedSrtPath}`
           ])
           .save(outputPath)
           .on('end', () => {
             // Clean up temporary files
             console.log('Cleaning up temporary files...');
-            fs.unlinkSync(tempSrtPath);
-            fs.unlinkSync(tempBgPath);
+            // fs.unlinkSync(tempSrtPath);
+            // fs.unlinkSync(tempBgPath);
             console.log(`Video created successfully: ${outputPath}`);
             resolve(outputPath);
           })
@@ -114,6 +124,38 @@ class AudioToVideoConverter {
       console.error('Conversion error:', error);
       throw error;
     }
+  }
+
+  /**
+   * Parse WebVTT-like format with timestamps in square brackets
+   * @param {string} text - Text content with timestamps in format [00:00:00.000 --> 00:00:00.000]
+   * @returns {Array} - Array of subtitle objects
+   */
+  _parseWebVTTLikeFormat(text) {
+    const lines = text.split('\n');
+    const subtitles = [];
+    
+    let id = 1;
+    
+    for (const line of lines) {
+      // Look for timestamp pattern [00:00:00.000 --> 00:00:00.000]
+      const match = line.match(/\[(\d{2}:\d{2}:\d{2}\.\d{3}) --> (\d{2}:\d{2}:\d{2}\.\d{3})\](.*)/);
+      
+      if (match) {
+        const startTime = match[1].replace('.', ','); // SRT uses comma for milliseconds
+        const endTime = match[2].replace('.', ',');   // SRT uses comma for milliseconds
+        const captionText = match[3].trim();
+        
+        subtitles.push({
+          id: id++,
+          startTime: startTime,
+          endTime: endTime,
+          text: captionText
+        });
+      }
+    }
+    
+    return subtitles;
   }
 
   /**
