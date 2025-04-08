@@ -35,6 +35,13 @@ class AudioToVideoConverter {
         throw new Error(`Transcription file not found: ${transcriptionPath}`);
       }
 
+      // Ensure the output directory exists
+      const outputDir = path.dirname(outputPath);
+      if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir, { recursive: true });
+        console.log(`Created output directory: ${outputDir}`);
+      }
+
       // Check file extensions
       const transcriptionExt = path.extname(transcriptionPath).toLowerCase();
       
@@ -52,15 +59,16 @@ class AudioToVideoConverter {
       }
 
       // Create temporary subtitle file
-      const tempSrtPath = `${outputPath}.temp.srt`;
+      const tempSrtPath = path.join(outputDir, `temp_${path.basename(outputPath)}.srt`);
       fs.writeFileSync(tempSrtPath, srtParser.toSrt(subtitles));
+      console.log(`Created temporary SRT file: ${tempSrtPath}`);
 
       // Get audio duration
       const audioDuration = await this._getAudioDuration(audioPath);
       console.log(`Audio duration: ${audioDuration} seconds`);
 
       // Create a simple black PNG file using direct FFmpeg command
-      const tempBgPath = `${outputPath}.bg.png`;
+      const tempBgPath = path.join(outputDir, `bg_${path.basename(outputPath)}.png`);
       this._createBlackImage(tempBgPath);
       console.log(`Created background image: ${tempBgPath}`);
 
@@ -68,6 +76,9 @@ class AudioToVideoConverter {
       return new Promise((resolve, reject) => {
         // First create a video from the image with the same duration as the audio
         console.log('Creating video from background image and audio...');
+        
+        // Ensure subtitle path is properly escaped for FFmpeg
+        const escapedSrtPath = tempSrtPath.replace(/'/g, "'\\''").replace(/:/g, '\\:');
         
         ffmpeg()
           // Use a solid color image for the background
@@ -82,7 +93,8 @@ class AudioToVideoConverter {
             '-b:a 192k',              // Audio bitrate
             '-pix_fmt yuv420p',       // Pixel format for better compatibility
             '-vf',                    // Video filter
-            `subtitles=${tempSrtPath}:force_style='FontName=${this.options.fontFamily},FontSize=${this.options.fontSize},PrimaryColour=white'` // Add subtitles
+            // Enhanced subtitle styling for better visibility
+            `subtitles=${escapedSrtPath}:force_style='FontName=${this.options.fontFamily},FontSize=${this.options.fontSize},PrimaryColour=white,BorderStyle=4,BackColour=black,Bold=1,Outline=2'`
           ])
           .save(outputPath)
           .on('end', () => {
